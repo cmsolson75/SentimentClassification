@@ -64,4 +64,4 @@ def script_model(model_path, output_path):
     script.save(output_path)
 
 if __name__ == "__main__":
-    script_model("../sentiment_lstm.pt", "../test.pt")
+    script_model("/Users/cameronolson/Developer/Personal/Learning/FastAI/projects/SentementClassificationSimple/models/weights/sentiment_lstm.pt", "../test.pt")
