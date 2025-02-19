@@ -1,0 +1,6 @@
+vocab_size: 96076
+output_size: 1
+embedding_size: 256
+hidden_size: 512
+n_layers: 2
+dropout: 0.25
