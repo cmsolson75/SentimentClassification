@@ -1,6 +1,6 @@
 import requests
 
-text = "I love you so much"
+text = "I Love you so much you are amazing"
 url = "http://0.0.0.0:8000/predict"
 data = {"text": text}
 

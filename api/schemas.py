@@ -7,4 +7,5 @@ class InferenceRequest(BaseModel):
 
 
 class InferenceResponse(BaseModel):
-    text: str
+    label: str
+    confidence: float

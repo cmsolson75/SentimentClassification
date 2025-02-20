@@ -48,12 +48,12 @@ def script_model(model_path, output_path):
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     model = SentimentModel(
-        config['vocab_size'],
-        config['output_size'],
-        config['hidden_size'],
-        config['embedding_size'],
-        config['n_layers'],
-        config['dropout'],
+        config["vocab_size"],
+        config["output_size"],
+        config["hidden_size"],
+        config["embedding_size"],
+        config["n_layers"],
+        config["dropout"],
     ).to(device)
 
     model.load_state_dict(
@@ -63,5 +63,9 @@ def script_model(model_path, output_path):
     script = torch.jit.script(model)
     script.save(output_path)
 
+
 if __name__ == "__main__":
-    script_model("/Users/cameronolson/Developer/Personal/Learning/FastAI/projects/SentementClassificationSimple/models/weights/sentiment_lstm.pt", "../test.pt")
+    script_model(
+        "/Users/cameronolson/Developer/Personal/Learning/FastAI/projects/SentementClassificationSimple/models/weights/sentiment_lstm.pt",
+        "../test.pt",
+    )
