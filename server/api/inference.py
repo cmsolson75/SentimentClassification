@@ -27,6 +27,7 @@ async def predict(
         InferenceResponse: JSON response with predicted label and confidence score. 
     """
     try:
+        print(request.text)
         label, confidence = model_service.predict(request.text)
     except Exception as e:
         logger.error(f"Prediction failed: {e}")
