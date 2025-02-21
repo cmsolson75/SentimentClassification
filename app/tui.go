@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/viewport"
@@ -74,7 +75,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyCtrlC, tea.KeyEsc:
 			return m, tea.Quit
 		case tea.KeyEnter:
-			response, err := FetchSentimentAnalysis(m.apiURL, m.textField.Value())
+
+			text := m.textField.Value()
+
+			text = strings.TrimSpace(text)
+			text = strings.ReplaceAll(text, "\x1b", "")
+			response, err := FetchSentimentAnalysis(m.apiURL, text)
 			if err != nil {
 				m.viewport.SetContent(fmt.Sprintf("Error: %v", err))
 			} else {

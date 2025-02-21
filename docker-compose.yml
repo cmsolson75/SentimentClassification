@@ -1,0 +1,27 @@
+services:
+  api:
+    build: ./server
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+    networks:
+      - app-network
+    volumes:
+      - ./server/models:/app/models
+  
+  app:
+    build: ./app
+    environment:
+      - API_URL=http://api:8000/predict
+    networks:
+      - app-network
+    depends_on:
+      - api
+    tty: true
+    stdin_open: true
+
+networks:
+  app-network:
+    driver: bridge
