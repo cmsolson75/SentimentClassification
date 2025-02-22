@@ -9,20 +9,35 @@ import (
 	"time"
 )
 
+// SentimentResponse represents the sentiment classification result returned by the API.
 type SentimentResponse struct {
 	Label      string  `json:"label"`
 	Confidence float64 `json:"confidence"`
 }
 
+// APIError is a custom error type for handing API request errors.
 type APIError struct {
 	Message string
 	Err     error
 }
 
+// Error implements the error interface for APIError.
 func (e *APIError) Error() string {
 	return fmt.Sprintf("%s: %v", e.Message, e.Err)
 }
 
+// FetchSentimentAnalysis calls the sentiment analysis API.
+//
+// It sends the given text to the API endpoint and returns a SentimentResponse containing
+// the sentiment label and confidence score. If the request fails, it returns an error.
+//
+// Parameters:
+//   - apiURL: The API endpoint for sentiment analysis
+//   - text: the input text to be analyzed.
+//
+// Returns:
+//   - A pointer to SentimentResponse containing the label and confidence score.
+//   - An error if the request fails or the API response is invalid.
 func FetchSentimentAnalysis(apiURL, text string) (*SentimentResponse, error) {
 	if text == "" {
 		return nil, &APIError{"Invalid input", fmt.Errorf("input cannot be empty")}

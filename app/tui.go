@@ -10,12 +10,14 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+// Styles defines the UI styling for input and output fields.
 type Styles struct {
 	BorderColor lipgloss.Color
 	InputField  lipgloss.Style
 	OutputField lipgloss.Style
 }
 
+// DefaultStyles initializes default UI styles.
 func DefaultStyles() *Styles {
 	return &Styles{
 		BorderColor: lipgloss.Color("38"),
@@ -32,6 +34,7 @@ func DefaultStyles() *Styles {
 	}
 }
 
+// Model represents the state of the TUI application
 type Model struct {
 	styles    *Styles
 	textField textinput.Model
@@ -41,6 +44,7 @@ type Model struct {
 	apiURL    string
 }
 
+// NewModel initializes a new TUI model with default styles and text input.
 func NewModel(apiURL string) *Model {
 	styles := DefaultStyles()
 
@@ -58,10 +62,20 @@ func NewModel(apiURL string) *Model {
 	}
 }
 
+// Init is required by Bubble Tea but is not used in this model.
 func (m Model) Init() tea.Cmd {
 	return nil
 }
 
+// Update handles user input and updates the model state.
+//
+// Supported key events:
+//   - Enter: Sends text to the sentiment analysis API and displays the results
+//   - Esc / Ctrl+C: Exits the application.
+//
+// Returns:
+//   - The updated model state.
+//   - A command to execute (if applicable).
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
@@ -111,6 +125,7 @@ func (m Model) renderOutput() string {
 	return m.styles.OutputField.Render(m.viewport.View())
 }
 
+// View renders the TUI layout.
 func (m Model) View() string {
 	content := lipgloss.JoinVertical(
 		lipgloss.Center,
